@@ -11,7 +11,7 @@ var enemyAttack = 12;
 
 //beginning fight
 var fight = function(enemyName) {
-    while(enemyHealth > 0) {
+    while(playerHealth > 0 && enemyHealth > 0) {
 
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
     //if player chooses to fight, then fight
@@ -39,6 +39,7 @@ var fight = function(enemyName) {
     //check player's health
         if (playerHealth <= 0) {
             window.alert(playerName + " has died!");
+            break;
         }
         else {
             window.alert(playerName + " still has " + playerHealth + " health left.");
