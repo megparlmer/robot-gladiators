@@ -31,18 +31,23 @@ var fightOrSkip = function() {
 
 //beginning fight
 var fight = function(enemy) {
+    //keep track of who goes first
+    var isPlayerTurn = true;
 
-    while(playerInfo.health > 0 && enemy.health > 0) {
-        //ask player if they'd like to fight or skip using fightOrSkip function
-        if (fightOrSkip()) {
-            //if true leave fight by breaking loop
-            break;
-        }
+    //randomly change turn order
+    if (Math.random() > 0.5) {
+        isPlayerTurn = false;
     }
 
-    //remove enemy's health by subtracting the amount set in the playerAttack variable
-    var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+    while(playerInfo.health > 0 && enemy.health > 0) {
+        if (isPlayerTurn) {
+            if (fightOrSkip()) {
+                //if true leave fight by breaking loop
+                break;
+            }
 
+    var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+ //remove enemy's health by subtracting the amount set in the playerAttack variable
     enemy.health = Math.max(0, enemy.health - damage);
 
     console.log(
@@ -61,10 +66,12 @@ var fight = function(enemy) {
     } else {
         window.alert(enemy.name + ' still has ' + enemy.health + ' health left.');
     }
-    //remove player's health by subtracting the amount set in the enemyAttack variable
+    //player gets attacked first
     } else {
 
     var damage = randomNumber(enemy.attack - 3, enemy.attack);
+
+    //remove players health by subtracting the amount set in the damage variable
 
     playerInfo.health = Math.max(0, playerInfo.health - damage);
     
@@ -81,6 +88,9 @@ var fight = function(enemy) {
         window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
         }
     }
+    //switch turn order for next round
+    isPlayerTurn = !isPlayerTurn;
+}
 };
 
 var startGame = function() {
@@ -143,6 +153,9 @@ var shop = function() {
     var shopOptionPrompt = window.prompt(
         "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE."
     );
+
+    //convert answer from prompt to actual number
+    shopOptionPrompt = parseInt(shopOptionPrompt);
 
     //use switch to carry out action
     switch (shopOptionPrompt) {
