@@ -24,12 +24,11 @@ var fightOrSkip = function() {
 
             //return true if player wants to leave
             return true;
-        } else {
-            return false;
         }
-    
     }
-}
+    return false;
+};
+
 //beginning fight
 var fight = function(enemy) {
 
@@ -58,12 +57,13 @@ var fight = function(enemy) {
         playerInfo.money = playerInfo.money + 20;
 
         //leave while() loop since enemy is dead
-        break;
+       break; 
     } else {
         window.alert(enemy.name + ' still has ' + enemy.health + ' health left.');
     }
-
     //remove player's health by subtracting the amount set in the enemyAttack variable
+    } else {
+
     var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
     playerInfo.health = Math.max(0, playerInfo.health - damage);
@@ -80,6 +80,7 @@ var fight = function(enemy) {
     } else {
         window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
         }
+    }
 };
 
 var startGame = function() {
@@ -140,28 +141,23 @@ var endGame = function() {
 var shop = function() {
     //ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
-        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE."
     );
 
     //use switch to carry out action
     switch (shopOptionPrompt) {
-        case "REFILL": //new case
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
-        case "UPGRADE": //new case
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
-        case "LEAVE": //new case
-        case "leave":
+        case 3:
             window.alert("Leaving the store.");
-
             //do nothing, so function will end
             break;
         default:
             window.alert("You did not pick a valid option. Try again.");
-
             //call shop() again to force player to pick a valid option
             shop();
             break;
